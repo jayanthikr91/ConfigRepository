@@ -31,8 +31,10 @@ stage('code analysis'){
 }
 stage('Artifactory upload')
 {
-		
-def server = "Artifactory.newServer  url: "+"${ARTIFACT_URL}"+",username:"+"${ARTIFACT_USERNAME}"+",password:"+"${ARTIFACT_PASSWD}" 
+def artifactUrl=prop.ARTIFACT_URL
+def artifactUserNm=prop.ARTIFACT_USERNAME
+def artifactPassWd=prop.ARTIFACT_PASSWD
+def server = "Artifactory.newServer  url: "+"${artifactUrl}"+",username:"+"${artifactUserNm}"+",password:"+"${artifactPassWd}" 
 def uploadSpec = """{
  	
 "files":[
