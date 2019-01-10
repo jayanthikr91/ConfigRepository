@@ -45,7 +45,11 @@ def uploadSpec = """{
 server.upload(uploadSpec)
 }
 stage('deploy'){
-sh 'cp /var/lib/jenkins/workspace/PipelineDemo/target/Helloworld.war /opt/tomcat/apache-tomcat-8.5.35/webapps/'
+def src=prop.SRC_DEPLOY_LOC
+def dest=prop.DEST_DEPLOY_LOC
+def deployCmd=cp+${src}+${dest}
+echo "${deployCmd}"
+sh "${deployCmd}"
 }
 
 }
