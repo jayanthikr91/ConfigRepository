@@ -32,7 +32,7 @@ stage('code analysis'){
 stage('Artifactory upload')
 {
 		
-def server = Artifactory.newServer  url: "http://my89162dns.eastus2.cloudapp.azure.com:8081/artifactory",username:'admin',password:'password'
+def server = "Artifactory.newServer  url: "+"${ARTIFACT_URL}"+",username:"+"${ARTIFACT_USERNAME}"+",password:"+"${ARTIFACT_PASSWD}" 
 def uploadSpec = """{
  	
 "files":[
@@ -44,10 +44,10 @@ def uploadSpec = """{
 }"""
 server.upload(uploadSpec)
 }
-stage('deploy'){
+stage('deployment'){
 def src=prop.SRC_DEPLOY_LOC
 def dest=prop.DEST_DEPLOY_LOC
-def deployCmd="cp "+"${src}"+"${dest}"
+def deployCmd="cp "+"${src}"+" "+${dest}"
 echo "${deployCmd}"
 sh "${deployCmd}"
 }
