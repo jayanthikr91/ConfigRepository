@@ -29,7 +29,21 @@ stage('code analysis'){
     echo "${url}"
     sh "${url}"
 }
-
+stage('Artifactory upload')
+{
+		
+def server = Artifactory.newServer  url: "http://my89162dns.eastus2.cloudapp.azure.com:8081/artifactory",username:'admin',password:'password'
+def uploadSpec = """{
+ 	
+"files":[
+{
+"pattern":"target/*.war",
+"target":"hello/"
+}
+]
+}"""
+server.upload(uploadSpec)
+}
 stage('deploy'){
 sh 'cp /var/lib/jenkins/workspace/PipelineDemo/target/Helloworld.war /opt/tomcat/apache-tomcat-8.5.35/webapps/'
 }
