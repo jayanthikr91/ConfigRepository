@@ -47,7 +47,7 @@ server.upload(uploadSpec)
 stage('deployment'){
 def src=prop.SRC_DEPLOY_LOC
 def dest=prop.DEST_DEPLOY_LOC
-def deployCmd="cp "+"${src}"+" "+${dest}"
+def deployCmd="cp "+"${src}"+" "+"${dest}"
 echo "${deployCmd}"
 sh "${deployCmd}"
 }
