@@ -1,0 +1,37 @@
+node{
+
+checkout scm;
+def prop=readProperties  file: 'propertiesfile.txt'
+
+stage('checkout')
+
+{
+echo "${prop}"
+def giturl=prop.GIT_URL
+echo "giturl=${giturl}"
+git "${giturl}"
+
+}
+
+stage ('build'){
+
+def buildcmd=prop.MAVEN_CMD
+echo "${buildcmd}"
+sh "${buildcmd}"
+
+}
+
+stage('code analysis'){
+    echo "${prop}"
+    def mvncmd=prop.MAVEN_SONAR_CMD
+    def sonarurl=prop.SONAR_URL
+    def url=mvncmd+sonarurl
+    echo "${url}"
+    sh "${url}"
+}
+
+stage('deploy'){
+sh 'cp /var/lib/jenkins/workspace/PipelineDemo/target/Helloworld.war /opt/tomcat/apache-tomcat-8.5.35/webapps/'
+}
+
+}
